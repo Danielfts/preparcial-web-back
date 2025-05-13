@@ -5,8 +5,8 @@ import {
 } from 'typeorm';
 
 class BaseTimestampsEntity {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @PrimaryGeneratedColumn('identity', { type: 'bigint' })
+  id: bigint;
   @CreateDateColumn()
   createdAt: Date;
   @UpdateDateColumn()
