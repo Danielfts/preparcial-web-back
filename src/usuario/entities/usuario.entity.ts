@@ -2,11 +2,7 @@ import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import BaseTimestampsEntity from '../../shared/entities/base-timestamps';
 import { Clase } from '../../clase/entities/clase.entity';
 import { Bono } from '../../bono/entities/bono.entity';
-
-enum UserType {
-  PROFESOR = 'Profesor',
-  DECANA = 'Decana',
-}
+import { UserType } from '../../shared/types/UserType';
 
 @Entity({ name: 'usuarios' })
 export class Usuario extends BaseTimestampsEntity {
@@ -20,13 +16,13 @@ export class Usuario extends BaseTimestampsEntity {
   numeroExtension: number;
   @Column({ type: 'enum', enum: UserType })
   rol: UserType;
-  @Column({ name: 'id_jefe' })
+  @Column({ name: 'id_jefe', nullable: true })
   idJefe: bigint;
 
   // Relations
   @ManyToOne(() => Usuario, (jefe: Usuario) => jefe.empleados)
   @JoinColumn({ name: 'id_jefe' })
-  jefe: Usuario;
+  jefe: Usuario | null;
 
   @OneToMany(() => Usuario, (empleado: Usuario) => empleado.jefe)
   empleados: Usuario[];
