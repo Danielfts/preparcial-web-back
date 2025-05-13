@@ -1,18 +1,23 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import BaseTimestampsEntity from '../../shared/entities/base-timestamps';
 
+enum UserType {
+  PROFESOR = 'Profesor',
+  DECANA = 'Decana',
+}
+
 @Entity({ name: 'usuarios' })
 export class Usuario extends BaseTimestampsEntity {
-  @Column()
-  numeroCedula: string;
+  @Column({ type: 'int2' })
+  numeroCedula: number;
   @Column()
   nombre: string;
   @Column()
   grupoInvestigacion: string;
-  @Column()
+  @Column({ type: 'int2' })
   numeroExtension: number;
-  @Column()
-  rol: 'Profesor' | 'Decana';
+  @Column({ type: 'enum', enum: UserType })
+  rol: UserType;
   @Column({ name: 'id_jefe' })
   idJefe: bigint;
 
