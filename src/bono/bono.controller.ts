@@ -3,14 +3,12 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
   Query,
 } from '@nestjs/common';
 import { BonoService } from './bono.service';
 import { CreateBonoDto } from './dto/create-bono.dto';
-import { UpdateBonoDto } from './dto/update-bono.dto';
 
 @Controller('bono')
 export class BonoController {
@@ -27,16 +25,6 @@ export class BonoController {
     @Query('idUsuario') idUsuario: bigint | undefined,
   ) {
     return this.bonoService.findAll({ idUsuario, palabraClave });
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.bonoService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateBonoDto: UpdateBonoDto) {
-    return this.bonoService.update(+id, updateBonoDto);
   }
 
   @Delete(':id')

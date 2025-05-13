@@ -6,7 +6,6 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { CreateBonoDto } from './dto/create-bono.dto';
-import { UpdateBonoDto } from './dto/update-bono.dto';
 import { EntityNotFoundError, Repository } from 'typeorm';
 import { Bono } from './entities/bono.entity';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -78,10 +77,6 @@ export class BonoService {
       });
   }
 
-  create(createBonoDto: CreateBonoDto) {
-    return this.crearBono(createBonoDto);
-  }
-
   findAll(options?: FindAllOptions): Promise<Bono[]> {
     if (options === undefined) {
       return this.bonoRepository.find();
@@ -91,17 +86,5 @@ export class BonoService {
       return this.findBonoByCodigo(options.palabraClave);
     }
     return this.bonoRepository.find();
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} bono`;
-  }
-
-  update(id: number, updateBonoDto: UpdateBonoDto) {
-    return `This action updates a #${id} bono`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} bono`;
   }
 }
