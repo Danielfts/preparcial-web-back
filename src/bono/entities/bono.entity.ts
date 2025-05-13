@@ -1,5 +1,5 @@
 import BaseTimestampsEntity from 'src/shared/entities/base-timestamps';
-import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import { Usuario } from '../../usuario/entities/usuario.entity';
 import { Clase } from '../../clase/entities/clase.entity';
 
@@ -12,7 +12,12 @@ export class Bono extends BaseTimestampsEntity {
   @Column()
   palabraClave: string;
 
+  // Relations
+
+  @Column({ name: 'profesor_id' })
+  profesorId: bigint;
   @ManyToOne(() => Usuario, (profesor) => profesor.bonos)
+  @JoinColumn({ name: 'profesor_id' })
   profesor: Usuario;
   @OneToMany(() => Clase, (clase) => clase.bonos)
   clases: Clase[];

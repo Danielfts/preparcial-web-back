@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { BonoService } from './bono.service';
 import { CreateBonoDto } from './dto/create-bono.dto';
 import { UpdateBonoDto } from './dto/update-bono.dto';
@@ -9,7 +17,7 @@ export class BonoController {
 
   @Post()
   create(@Body() createBonoDto: CreateBonoDto) {
-    return this.bonoService.create(createBonoDto);
+    return this.bonoService.crearBono(createBonoDto);
   }
 
   @Get()
@@ -29,6 +37,6 @@ export class BonoController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.bonoService.remove(+id);
+    return this.bonoService.deleteBono(BigInt(id));
   }
 }
