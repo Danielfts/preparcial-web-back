@@ -7,6 +7,9 @@ import configuration, {
   IConfiguration,
 } from './config/configuration';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
+import { UsuarioModule } from './usuario/usuario.module';
+import { BonoModule } from './bono/bono.module';
+import { ClaseModule } from './clase/clase.module';
 @Module({
   imports: [
     TypeOrmModule.forRootAsync({
@@ -23,6 +26,9 @@ import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
       validationSchema: config_schema,
       load: [configuration],
     }),
+    UsuarioModule,
+    BonoModule,
+    ClaseModule,
   ],
   controllers: [AppController],
   providers: [AppService],
