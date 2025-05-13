@@ -1,6 +1,7 @@
 import BaseTimestampsEntity from 'src/shared/entities/base-timestamps';
-import { Column, Entity, ManyToOne } from 'typeorm';
+import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
 import { Usuario } from '../../usuario/entities/usuario.entity';
+import { Clase } from '../../clase/entities/clase.entity';
 
 @Entity({ name: 'bonos' })
 export class Bono extends BaseTimestampsEntity {
@@ -13,4 +14,6 @@ export class Bono extends BaseTimestampsEntity {
 
   @ManyToOne(() => Usuario, (profesor) => profesor.bonos)
   profesor: Usuario;
+  @OneToMany(() => Clase, (clase) => clase.bonos)
+  clases: Clase[];
 }
