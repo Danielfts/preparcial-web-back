@@ -5,7 +5,6 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { CreateUsuarioDto } from './dto/create-usuario.dto';
-import { UpdateUsuarioDto } from './dto/update-usuario.dto';
 import { UserType } from '../shared/types/UserType';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Usuario } from './entities/usuario.entity';
@@ -53,10 +52,6 @@ export class UsuarioService {
     return this.create(createUsuarioDto);
   }
 
-  findAll() {
-    return `This action returns all usuario`;
-  }
-
   findOne(id: bigint): Promise<Usuario> {
     const result = this.usuarioRepository
       .findOne({
@@ -77,10 +72,6 @@ export class UsuarioService {
 
   findUsuarioById(id: bigint): Promise<Usuario> {
     return this.findOne(id);
-  }
-
-  update(id: number, updateUsuarioDto: UpdateUsuarioDto) {
-    return `This action updates a #${id} usuario`;
   }
 
   remove(id: bigint) {
