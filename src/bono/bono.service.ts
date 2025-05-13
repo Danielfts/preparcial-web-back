@@ -13,6 +13,11 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { UsuarioService } from '../usuario/usuario.service';
 import { UserType } from '../shared/types/UserType';
 
+interface FindAllOptions {
+  palabraClave?: string;
+  idUsuario?: bigint;
+}
+
 @Injectable()
 export class BonoService {
   constructor(
@@ -44,7 +49,9 @@ export class BonoService {
     return result;
   }
 
-  findBonoByCodigo() {}
+  findBonoByCodigo(palabraClave: string): Promise<Bono[]> {
+    return this.bonoRepository.findBy({ palabraClave });
+  }
 
   findAllBonosByUsuario(userId: bigint): Promise<Bono[]> {
     return this.userService
@@ -75,8 +82,15 @@ export class BonoService {
     return this.crearBono(createBonoDto);
   }
 
-  findAll() {
-    return `This action returns all bono`;
+  findAll(options?: FindAllOptions): Promise<Bono[]> {
+    if (options === undefined) {
+      return this.bonoRepository.find();
+    } else if (options.idUsuario) {
+      return this.findAllBonosByUsuario(options.idUsuario);
+    } else if (options.palabraClave) {
+      return this.findBonoByCodigo(options.palabraClave);
+    }
+    return this.bonoRepository.find();
   }
 
   findOne(id: number) {

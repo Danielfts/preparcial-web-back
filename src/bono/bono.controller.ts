@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { BonoService } from './bono.service';
 import { CreateBonoDto } from './dto/create-bono.dto';
@@ -21,8 +22,11 @@ export class BonoController {
   }
 
   @Get()
-  findAll() {
-    return this.bonoService.findAll();
+  findAll(
+    @Query('codigo') palabraClave: string | undefined,
+    @Query('idUsuario') idUsuario: bigint | undefined,
+  ) {
+    return this.bonoService.findAll({ idUsuario, palabraClave });
   }
 
   @Get(':id')
