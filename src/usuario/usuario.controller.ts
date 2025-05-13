@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { UsuarioService } from './usuario.service';
 import { CreateUsuarioDto } from './dto/create-usuario.dto';
 import { UpdateUsuarioDto } from './dto/update-usuario.dto';
@@ -9,7 +17,7 @@ export class UsuarioController {
 
   @Post()
   create(@Body() createUsuarioDto: CreateUsuarioDto) {
-    return this.usuarioService.create(createUsuarioDto);
+    return this.usuarioService.crearUsuario(createUsuarioDto);
   }
 
   @Get()
@@ -19,7 +27,7 @@ export class UsuarioController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.usuarioService.findOne(+id);
+    return this.usuarioService.findUsuarioById(BigInt(id));
   }
 
   @Patch(':id')
@@ -29,6 +37,6 @@ export class UsuarioController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.usuarioService.remove(+id);
+    return this.usuarioService.eliminarUsuario(BigInt(id));
   }
 }
