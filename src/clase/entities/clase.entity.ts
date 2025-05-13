@@ -1,5 +1,6 @@
-import BaseTimestampsEntity from 'src/shared/entities/base-timestamps';
-import { Column, Entity } from 'typeorm';
+import BaseTimestampsEntity from '../../shared/entities/base-timestamps';
+import { Column, Entity, ManyToOne } from 'typeorm';
+import { Usuario } from '../../usuario/entities/usuario.entity';
 
 @Entity({ name: 'clases' })
 export class Clase extends BaseTimestampsEntity {
@@ -9,4 +10,6 @@ export class Clase extends BaseTimestampsEntity {
   codigo: string;
   @Column({ type: 'int2' })
   numeroCreditos: number;
+  @ManyToOne(() => Usuario, (profesor) => profesor.clases)
+  profesor: Usuario;
 }

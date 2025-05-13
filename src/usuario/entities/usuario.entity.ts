@@ -1,5 +1,6 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import BaseTimestampsEntity from '../../shared/entities/base-timestamps';
+import { Clase } from '../../clase/entities/clase.entity';
 
 enum UserType {
   PROFESOR = 'Profesor',
@@ -21,10 +22,15 @@ export class Usuario extends BaseTimestampsEntity {
   @Column({ name: 'id_jefe' })
   idJefe: bigint;
 
+  // Relations
   @ManyToOne(() => Usuario, (jefe: Usuario) => jefe.empleados)
   @JoinColumn({ name: 'id_jefe' })
   jefe: Usuario;
 
   @OneToMany(() => Usuario, (empleado: Usuario) => empleado.jefe)
   empleados: Usuario[];
+
+  // un usuario -> muchas clases
+  @OneToMany(() => Clase, (clase) => clase.profesor)
+  clases: Clase[];
 }
