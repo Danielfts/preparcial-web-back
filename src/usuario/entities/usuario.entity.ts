@@ -1,6 +1,7 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import BaseTimestampsEntity from '../../shared/entities/base-timestamps';
 import { Clase } from '../../clase/entities/clase.entity';
+import { Bono } from '../../bono/entities/bono.entity';
 
 enum UserType {
   PROFESOR = 'Profesor',
@@ -30,7 +31,11 @@ export class Usuario extends BaseTimestampsEntity {
   @OneToMany(() => Usuario, (empleado: Usuario) => empleado.jefe)
   empleados: Usuario[];
 
-  // un usuario -> muchas clases
+  // un usuario -> una o muchas clases
   @OneToMany(() => Clase, (clase) => clase.profesor)
   clases: Clase[];
+
+  // un usuario -> muchos o ningun bono
+  @OneToMany(() => Bono, (bono) => bono.profesor)
+  bonos: Bono[];
 }
